@@ -69,7 +69,7 @@ def converter(filename):
         print("Chris incoming to %s" % outFile)
         return aimg
     except:
-        print("File not found")
+        return("File not found")
 
 app = Flask(__name__)
 @app.route('/chris/<name>')
