@@ -26,7 +26,6 @@ def covertImageToAscii(fileName, cols, scale, moreLevels):
     print("tile dims: %d x %d" % (w, h))
 
     if cols > W or rows > H:
-        print("Image too small for specified cols!")
         exit(0)
 
     aimg = []
@@ -52,8 +51,6 @@ def covertImageToAscii(fileName, cols, scale, moreLevels):
     return aimg
 
 def converter():
-    descStr = "This program converts an image into ASCII art."
-    parser = argparse.ArgumentParser(description=descStr)
     parser.add_argument('--morelevels',dest='moreLevels',action='store_true')
 
     args = parser.parse_args()
@@ -63,7 +60,6 @@ def converter():
     scale = 0.43
     cols = 80
 
-    print('generating ASCII art...')
     aimg = covertImageToAscii(imgFile, cols, scale, args.moreLevels)
     f = open(outFile, 'w')
     for row in aimg:
