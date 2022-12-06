@@ -4,6 +4,7 @@ import math
 from flask import Flask, render_template
 from flask_restful import Resource, Api, reqparse
 from PIL import Image
+import os.path
 
 gscale1 = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
 gscale2 = '@%#*+=-:. '
@@ -50,27 +51,28 @@ def covertImageToAscii(fileName, cols, scale, moreLevels):
     
     return aimg
 
-def converter():
+def converter(filename):
+    parser = argparse.ArgumentParser()
     parser.add_argument('--morelevels',dest='moreLevels',action='store_true')
 
     args = parser.parse_args()
-  
-    imgFile = "IMG_0493.png"
-    outFile = 'out.txt'
-    scale = 0.43
-    cols = 80
+    try:
+        outFile = 'out.txt'
+        scale = 0.43
+        cols = 80
 
-    aimg = covertImageToAscii(imgFile, cols, scale, args.moreLevels)
-    f = open(outFile, 'w')
-    for row in aimg:
-        f.write(row + '\n')
-    f.close()
-    print("ASCII art written to %s" % outFile)
-    return aimg
-
+        aimg = covertImageToAscii(filename, cols, scale, args.moreLevels)
+        f = open(outFile, 'w')
+        for row in aimg:
+            f.write(row + '\n')
+        f.close()
+        print("Chris incoming to %s" % outFile)
+        return aimg
+    except:
+        print("File not found")
 
 app = Flask(__name__)
-@app.route('/chris')
+@app.route('/chris/<name>')
 def hello(name=None):
-    asciiimg = converter()
+    asciiimg = converter(name)
     return asciiimg  
