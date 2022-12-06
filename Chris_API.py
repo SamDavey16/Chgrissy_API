@@ -6,7 +6,7 @@ from flask_restful import Resource, Api, reqparse
 from PIL import Image
 import os.path
 
-gscale1 = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
+gscale1 = '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`". '
 gscale2 = '@%#*+=-:. '
 
 def getAverageL(image):
