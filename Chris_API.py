@@ -51,7 +51,7 @@ def covertImageToAscii(fileName, cols, scale, moreLevels):
     
     return aimg
 
-def converter(filename):
+def output(filename):
     parser = argparse.ArgumentParser()
     parser.add_argument('--morelevels',dest='moreLevels',action='store_true')
 
@@ -74,5 +74,5 @@ def converter(filename):
 app = Flask(__name__)
 @app.route('/chris/<name>')
 def hello(name=None):
-    asciiimg = converter(name)
+    asciiimg = output(name)
     return asciiimg  
