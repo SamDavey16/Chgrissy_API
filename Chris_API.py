@@ -58,7 +58,7 @@ def converter():
 
     args = parser.parse_args()
   
-    imgFile = "Banana-Single.jpg"
+    imgFile = "IMG_0493.png"
     outFile = 'out.txt'
     scale = 0.43
     cols = 80
@@ -74,12 +74,7 @@ def converter():
 
 
 app = Flask(__name__)
-@app.route('/chris/<name>')
+@app.route('/chris')
 def hello(name=None):
     asciiimg = converter()
-    return asciiimg
-
-
-
-    
-    
+    return asciiimg  
