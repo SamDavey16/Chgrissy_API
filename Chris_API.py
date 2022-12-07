@@ -14,7 +14,7 @@ def getAverageL(image):
     w,h = im.shape
     return np.average(im.reshape(w*h))
 
-def covertImageToAscii(fileName, cols, scale, moreLevels):
+def convertImageToAscii(fileName, cols, scale, moreLevels):
     global gscale1, gscale2
     image = Image.open(fileName).convert('L')
     W, H = image.size[0], image.size[1]
@@ -61,7 +61,7 @@ def output(filename):
         scale = 0.43
         cols = 80
 
-        aimg = covertImageToAscii(filename, cols, scale, args.moreLevels)
+        aimg = convertImageToAscii(filename, cols, scale, args.moreLevels)
         f = open(outFile, 'w')
         for row in aimg:
             f.write(row + '\n')
