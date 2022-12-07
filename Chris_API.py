@@ -74,6 +74,6 @@ def output(filename):
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 @app.route('/chris/<name>')
-def hello(name=None):
+def Chris(name=None):
     asciiimg = output(name)
     return asciiimg  
