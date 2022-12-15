@@ -6,6 +6,19 @@ from flask_restful import Resource, Api, reqparse
 from PIL import Image, ImageFont, ImageDraw
 import os.path
 
+font = ImageFont.truetype('arialbd.ttf', 15) 
+size = font.getsize('Chgrissy')
+image = Image.new('1', size, 1) 
+draw = ImageDraw.Draw(image)
+draw.text((0, 0), 'Chgrissy', font=font)
+Chgrissy = []
+for rownum in range(size[1]): 
+    line = []
+    for colnum in range(size[0]):
+        if image.getpixel((colnum, rownum)): line.append(' '),
+        else: line.append('#'),
+    Chgrissy.append(''.join(line))
+
 gscale1 = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,",'"', "^`'."
 gscale2 = '@%#*+=-:. '
 
@@ -63,6 +76,8 @@ def output(filename):
 
         aimg = convertImageToAscii(filename, cols, scale, args.moreLevels)
         f = open(outFile, 'w')
+        for c in Chgrissy:
+            f.write(c + '\n')
         for row in aimg:
             f.write(row + '\n')
         f.close()
@@ -70,19 +85,6 @@ def output(filename):
         return aimg
     except:
         return("File not found")
-
-font = ImageFont.truetype('arialbd.ttf', 15) 
-size = font.getsize('Chgrissy')
-image = Image.new('1', size, 1) 
-draw = ImageDraw.Draw(image)
-draw.text((0, 0), 'Chgrissy', font=font)
-Chgrissy = []
-for rownum in range(size[1]): 
-    line = []
-    for colnum in range(size[0]):
-        if image.getpixel((colnum, rownum)): line.append(' '),
-        else: line.append('#'),
-    Chgrissy.append(''.join(line))
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
