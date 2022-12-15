@@ -1,12 +1,12 @@
 import sys, random, argparse
 import numpy as np
 import math
-from flask import Flask, render_template
+from flask import Flask, render_template, make_response
 from flask_restful import Resource, Api, reqparse
-from PIL import Image
+from PIL import Image, ImageFont, ImageDraw
 import os.path
 
-gscale1 = '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`". '
+gscale1 = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,",'"', "^`'."
 gscale2 = '@%#*+=-:. '
 
 def getAverageL(image):
@@ -71,9 +71,22 @@ def output(filename):
     except:
         return("File not found")
 
+font = ImageFont.truetype('arialbd.ttf', 15) 
+size = font.getsize('Chgrissy')
+image = Image.new('1', size, 1) 
+draw = ImageDraw.Draw(image)
+draw.text((0, 0), 'Chgrissy', font=font)
+Chgrissy = []
+for rownum in range(size[1]): 
+    line = []
+    for colnum in range(size[0]):
+        if image.getpixel((colnum, rownum)): line.append(' '),
+        else: line.append('#'),
+    Chgrissy.append(''.join(line))
+
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 @app.route('/chris/<name>')
 def Chris(name=None):
-    asciiimg = output(name)
-    return asciiimg  
+    asciiimg = Chgrissy + output(name)
+    return asciiimg
